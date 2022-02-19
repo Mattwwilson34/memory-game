@@ -1,9 +1,10 @@
 import './Card.css';
 
-export default function Card(img) {
+export default function Card(props) {
+  const { name, img } = props.pokemon;
   return (
     <div className='Card' data-testid='Card'>
-      <img className='CardImage' alt='Pokemon' src={img}></img>
+      <img src={img} alt={name}></img>
     </div>
   );
 }
