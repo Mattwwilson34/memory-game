@@ -18,6 +18,13 @@ function App() {
     })();
   }, []);
 
+  useEffect(() => {});
+
+  const shuffleCards = () => {
+    const pokemonArray = [...pokemon];
+    setPokemon(shuffleArray(pokemonArray));
+  };
+
   return (
     <div className='App' data-testid='App'>
       <Header />
@@ -26,7 +33,13 @@ function App() {
           <div>Loading...</div>
         ) : (
           pokemon.map((pokemon) => {
-            return <Card key={pokemon.id} pokemon={pokemon} />;
+            return (
+              <Card
+                key={pokemon.id}
+                pokemon={pokemon}
+                shuffleCards={shuffleCards}
+              />
+            );
           })
         )}
       </div>
