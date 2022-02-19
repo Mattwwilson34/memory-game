@@ -1,28 +1,28 @@
 export default async function fetchPokemon(numberOfPokemon) {
   // holds each pokemon promise
-  const promises = [];
+  const pokemonPromises = [];
 
   // call pokeAPI and stores promise
   for (let i = 1; i <= numberOfPokemon; i++) {
     const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    promises.push(data);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const pokemon = {
+        id: data.id,
+        name: data.name,
+        img: data.sprites.other['official-artwork']['front_default'],
+      };
+      pokemonPromises.push(pokemon);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // wait for all pokemon promises to resolve
-  const results = await Promise.all(promises);
-
-  // extract pokemon ID, Name, image source
-  const pokemonArray = [];
-  results.forEach((pokemon) => {
-    pokemonArray.push({
-      id: pokemon.id,
-      name: pokemon.name,
-      img: pokemon.sprites.other['official-artwork']['front_default'],
-    });
-  });
-  console.log(pokemonArray);
-
-  return pokemonArray;
+  try {
+    return await Promise.all(pokemonPromises);
+  } catch (error) {
+    console.log(error);
+  }
 }

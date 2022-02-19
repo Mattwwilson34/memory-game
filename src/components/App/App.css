@@ -1,0 +1,8 @@
+.CardContainer {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 20px;
+  justify-items: center;
+}
