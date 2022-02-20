@@ -8,6 +8,9 @@ import shuffleArray from '../../Utils/shuffle-array';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [pokemon, setPokemon] = useState([]);
+  const [cardsClicked, setCardsClicked] = useState([]);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -18,31 +21,56 @@ function App() {
     })();
   }, []);
 
-  useEffect(() => {});
-
   const shuffleCards = () => {
     const pokemonArray = [...pokemon];
     setPokemon(shuffleArray(pokemonArray));
   };
 
+  const updateScore = () => setScore(score + 1);
+
+  const updateCardsClicked = (pokemonName) => {
+    const copyCardsClicked = [...cardsClicked];
+    copyCardsClicked.push(pokemonName);
+    setCardsClicked([...copyCardsClicked]);
+  };
+
+  const checkIfGameOver = (pokemonName) => {
+    console.log(cardsClicked);
+    const cardIndex = cardsClicked.findIndex((name) => name === pokemonName);
+    return cardIndex !== -1 ? reset() : false;
+  };
+
+  const reset = () => {
+    setHighScore(score);
+    setScore(0);
+    setCardsClicked([]);
+    shuffleCards();
+    return true;
+  };
+
+  const displayCards = () => {
+    if (isLoading) {
+      return <div>Content Loading...</div>;
+    } else {
+      return pokemon.map((pokemon) => {
+        return (
+          <Card
+            key={pokemon.id}
+            pokemon={pokemon}
+            updateCardsClicked={updateCardsClicked}
+            updateScore={updateScore}
+            shuffleCards={shuffleCards}
+            checkIfGameOver={checkIfGameOver}
+          />
+        );
+      });
+    }
+  };
+
   return (
     <div className='App' data-testid='App'>
-      <Header />
-      <div className='CardContainer'>
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          pokemon.map((pokemon) => {
-            return (
-              <Card
-                key={pokemon.id}
-                pokemon={pokemon}
-                shuffleCards={shuffleCards}
-              />
-            );
-          })
-        )}
-      </div>
+      <Header score={score} highScore={highScore} />
+      <div className='CardContainer'>{displayCards()}</div>
     </div>
   );
 }

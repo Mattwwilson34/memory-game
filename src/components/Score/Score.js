@@ -1,9 +1,11 @@
 import './Score.css';
 
-export default function Score() {
+export default function Score(props) {
+  const { score } = props;
+
   return (
     <span className='Score' data-testid='Score'>
-      Score 0
+      Score: {score}
     </span>
   );
 }
