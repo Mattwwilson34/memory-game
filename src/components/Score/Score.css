@@ -1,0 +1,5 @@
+.Score {
+  font-size: 32px;
+  grid-column-start: 2;
+  text-align: center;
+}

@@ -1,4 +1,6 @@
 .Header {
-  height: 50px;
-  background-color: #616161;
+  background-color: rgb(213, 59, 59);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-right: 25px;
 }

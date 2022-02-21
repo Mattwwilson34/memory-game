@@ -3,9 +3,17 @@
 *:after {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: 'PoppinsBold';
+  src: local('PoppinsBold'), url('./fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
 html,
 body {
   height: 100vh;
   background-color: grey;
   margin: 0;
+  font-family: 'PoppinsBold';
 }

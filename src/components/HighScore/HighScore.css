@@ -1,3 +1,5 @@
 .HighScore {
-  display: block;
+  font-size: 32px;
+  grid-column-start: 3;
+  text-align: right;
 }
