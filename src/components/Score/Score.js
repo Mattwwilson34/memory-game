@@ -3,9 +3,17 @@ import './Score.css';
 export default function Score(props) {
   const { score } = props;
 
-  return (
-    <span className='Score' data-testid='Score'>
-      Score: {score}
-    </span>
-  );
+  if (score) {
+    return (
+      <span className='Score' data-testid='Score'>
+        Score: {score}
+      </span>
+    );
+  } else {
+    return (
+      <span className='Score' data-testid='Score'>
+        Chose a pokemon
+      </span>
+    );
+  }
 }

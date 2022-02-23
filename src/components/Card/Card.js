@@ -8,8 +8,9 @@ export default function Card(props) {
   return (
     <div
       className='Card'
+      data-testid='Card'
       data-name={name}
-      onClick={() => {
+      onClick={(e) => {
         updateCardsClicked(name);
         if (checkIfGameOver(name)) {
           return;

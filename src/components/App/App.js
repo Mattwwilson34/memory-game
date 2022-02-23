@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const data = await fetchPokemon(8);
+      const data = await fetchPokemon(36);
       shuffleArray(data);
       setIsLoading(false);
       setPokemon(data);
@@ -35,24 +35,49 @@ function App() {
   };
 
   const checkIfGameOver = (pokemonName) => {
-    console.log(cardsClicked);
     const cardIndex = cardsClicked.findIndex((name) => name === pokemonName);
     return cardIndex !== -1 ? reset() : false;
   };
 
   const reset = () => {
-    setHighScore(score);
+    if (highScore < score) {
+      setHighScore(score);
+    }
     setScore(0);
     setCardsClicked([]);
     shuffleCards();
     return true;
   };
 
-  const displayCards = () => {
+  // checks for an unwinnable board
+  const checkForUnwinnable = (copyPokemonArray) => {
+    // convert pokemon objects to name array
+    const pokeNames = copyPokemonArray.map((x) => x.name);
+
+    // check each name against pokemon already clicked on
+    const truthArray = pokeNames.map((name) => cardsClicked.includes(name));
+
+    // if all elements are true the board is unplayable
+    return truthArray.every((x) => x === true);
+  };
+
+  const displayCards = (numberOfCards) => {
     if (isLoading) {
-      return <div>Content Loading...</div>;
+      return <div className='Loading'>Content Loading...</div>;
     } else {
-      return pokemon.map((pokemon) => {
+      // reduce number of pokemon cards displayed
+      let copyPokemonArray = pokemon.slice(pokemon.length - numberOfCards);
+
+      // check if board is unwinnable if not reshuffle cards
+      if (score >= 12) {
+        while (checkForUnwinnable(copyPokemonArray)) {
+          shuffleCards();
+          copyPokemonArray = pokemon.slice(pokemon.length - numberOfCards);
+        }
+      }
+
+      // rreturn pokemon card components
+      return copyPokemonArray.map((pokemon) => {
         return (
           <Card
             key={pokemon.id}
@@ -70,9 +95,12 @@ function App() {
   return (
     <div className='App' data-testid='App'>
       <Header score={score} highScore={highScore} />
-      <div className='CardContainer'>{displayCards()}</div>
+      <div className='CardContainer'>{displayCards(12)}</div>
     </div>
   );
 }
 
 export default App;
+
+// Must make sure that a card is a winning card
+// after splice run pokemon names against pokemonNames array for comparison if at least 1 poekmon name is not present proceed if not reshuffle.
