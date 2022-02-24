@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/memory-game/static/css/main.5635c724.css",
+    "main.js": "/memory-game/static/js/main.aec1c6b9.js",
+    "static/media/Poppins-Bold.ttf": "/memory-game/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
+    "index.html": "/memory-game/index.html",
+    "main.5635c724.css.map": "/memory-game/static/css/main.5635c724.css.map",
+    "main.aec1c6b9.js.map": "/memory-game/static/js/main.aec1c6b9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5635c724.css",
+    "static/js/main.aec1c6b9.js"
+  ]
+}
