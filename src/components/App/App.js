@@ -101,6 +101,3 @@ function App() {
 }
 
 export default App;
-
-// Must make sure that a card is a winning card
-// after splice run pokemon names against pokemonNames array for comparison if at least 1 poekmon name is not present proceed if not reshuffle.
